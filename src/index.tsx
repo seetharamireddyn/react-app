@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Routing from './Routing';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <div>
-      <h1>Junk Store</h1>
-    </div>
-  </React.StrictMode>,
+  <Routing/>,
   document.getElementById('root')
 );
