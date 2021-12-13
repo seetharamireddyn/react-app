@@ -88,3 +88,22 @@
 span {
     margin-right: 0.5em;
 }
+
+
+.flex-container{
+    display: flex;
+}
+
+.flex-container > .flex-container-1 {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+
+}
+
+.flex-container > .flex-container-1 > div > img {
+    flex-grow: 8;
+    width: 300px;
+    height: 200px;
+    margin-bottom: 30px;
+}

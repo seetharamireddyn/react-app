@@ -10,7 +10,6 @@ const Search = () => {
     const [restaurants, setrestaurants] = useState();
 
     useEffect(() => {
-
         fetch(cityUrl, { method: 'GET' })
             .then((res) => res.json())
             .then(data => setLocation(data))

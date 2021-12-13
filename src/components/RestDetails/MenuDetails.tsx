@@ -6,20 +6,21 @@ interface ImenuDetailProps {
 }
 
 const MenuDetails: FC<ImenuDetailProps> = (propsdata) => {
-    let orders: any;
+    let orders: any | undefined = [];
     const [count, setCount] = useState(0);
 
     function addOrder(item: any) {
         setCount(count + 1)
-        // orders.push(item);
-        // propsdata.finalOrder(item)
+        orders.push(item);
+        propsdata.finalOrder(orders);
     }
 
     function removeOrder(item: any) {
         if (count > 0) {
             setCount(count - 1)
-            // orders.splice(orders(item), 1)
-            // propsdata.finalOrder(item)
+            orders.slice(orders[item], 1);
+            propsdata.finalOrder(orders)
+
         }
     }
 
@@ -27,7 +28,7 @@ const MenuDetails: FC<ImenuDetailProps> = (propsdata) => {
         if (items) {
             return items.map((item: any, index: number) => {
                 return (
-                    <b key={index}>{item},&nbsp;&nbsp;</b>
+                    <b key={index}>{item.menu_id},&nbsp;&nbsp;</b>
                 )
             })
         }
@@ -62,10 +63,10 @@ const MenuDetails: FC<ImenuDetailProps> = (propsdata) => {
     return (
         <div>
             <div className="col-md-12 bg-success">
-                {/* <h1>Item Added</h1>
-                Item Number {addToCart(orders.map((order:any) => {
+                <h1>Item Added</h1>
+                Item Number {addToCart(orders?.map((order: any) => {
                     return <span>{order.menu_id}</span>
-                }))} Added */}
+                }))} Added
             </div>
             <div className="col-md-12 bg-info">
                 {menuDetail(propsdata.menuData)}

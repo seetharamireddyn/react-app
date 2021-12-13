@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from "./components/Home/Home";
 import MealTypeApi from "./components/MealType/MealTypeApi";
 import RestDetail from "./components/RestDetails/RestDetail";
+import PlaceOrder from "./components/Booking/PlaceOrder";
 
 const Routing = () => {
 
@@ -20,6 +21,9 @@ const Routing = () => {
                 <Route path="/details" element={<RestDetail />}>
                     <Route path=":restid" element={<RestDetail />}/>
                 </Route> 
+                <Route path="/placeOrder" element={<PlaceOrder/>}> 
+                    <Route path=":restName"  element={<PlaceOrder/>}/>
+                </Route>
                 <Route path="*" element={<Error/>}/>
             </Routes>
             <Footer/>

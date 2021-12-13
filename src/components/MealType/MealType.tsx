@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './MealType.css';
 
 interface IrestDataProps {
@@ -10,9 +10,9 @@ interface IrestDataProps {
 const MealType: FC<IrestDataProps> = (restDataProps: any) => {
 
     const restDetail = (restData: any, mealId: string) => {
-        if(restData){
-             if(restData != null){
-                return restData.map((rest:any) => {
+        if (restData) {
+            if (restData != null) {
+                return restData.map((rest: any) => {
                     return (
                         <div className="item" key={rest._id}>
                             <div className="row">
@@ -26,9 +26,9 @@ const MealType: FC<IrestDataProps> = (restDataProps: any) => {
                                         <div className="city_name">{rest.rating_text}</div>
                                         <div className="city_name">Rs. {rest.cost}</div>
                                         <div className="labelDiv" >
-                                            {rest.mealTypes.map(function (mealType:any) {
+                                            {rest.mealTypes.map(function (mealType: any) {
                                                 return (
-                                                    <span className={ mealType.mealtype_id === Number(mealId) ? "label label-success" : "label label-primary"}
+                                                    <span className={mealType.mealtype_id === Number(mealId) ? "label label-success" : "label label-primary"}
                                                         key={mealType.mealtype_id}>
                                                         {mealType.mealtype_name}
                                                     </span>
@@ -36,7 +36,7 @@ const MealType: FC<IrestDataProps> = (restDataProps: any) => {
                                             })}
                                         </div>
                                         <div className="labelDiv">
-                                            {rest.cuisines.map(function (cuisine:any, index:number) {
+                                            {rest.cuisines.map(function (cuisine: any, index: number) {
                                                 return (
                                                     <span className={index === 1 ? "label label-danger" : "label label-info"}
                                                         key={cuisine.cuisine_id}>
@@ -53,14 +53,20 @@ const MealType: FC<IrestDataProps> = (restDataProps: any) => {
                 })
 
             }
-            else{
-                <div className="item">No Data</div>
+            else {
+                return (
+                    <div>
+                        <img src="/images/loader.gif" alt="loader" />
+                    </div>
+                )
             }
         }
-        else{
-            <div className="item"> 
-                <img src="/images/loader.gif" alt="loader" />
-            </div>
+        else {
+            return (
+                <div>
+                    <img src="/images/loader.gif" alt="loader" />
+                </div>
+            )
         }
     }
 

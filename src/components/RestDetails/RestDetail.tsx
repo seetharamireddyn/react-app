@@ -33,7 +33,7 @@ const RestDetail = () => {
 
     function proceed() {
         sessionStorage.setItem('menu', JSON.stringify(userItem));
-        //navigate(`/placeOrder/${details.restaurant_name}`);
+        navigate(`/placeOrder/${details.restaurant_name}`);
     }
 
     function addToCart(data: any) {
@@ -75,7 +75,7 @@ const RestDetail = () => {
                                         finalOrder={(data: any) => { addToCart(data) }} />
                                 </TabPanel>
                             </Tabs>
-                            <button className="btn btn-success" onClick={() => proceed()}>Proceed</button>
+                            <button id="proceed" className="btn btn-success" onClick={() => proceed()}>Proceed</button>
                         </div>
                     </div>
                 </div>
