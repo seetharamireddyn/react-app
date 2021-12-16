@@ -2,37 +2,36 @@ import React, { FC, useState } from 'react';
 
 interface ImenuDetailProps {
     menuData?: any,
-    finalOrder: any
+    finalOrder?: any
 }
 
 const MenuDetails: FC<ImenuDetailProps> = (propsdata) => {
-    let orders: any | undefined = [];
+    let orderIds: any | undefined = [];
     const [count, setCount] = useState(0);
 
-    function addOrder(item: any) {
+    function addOrder(menuId: number) {
         setCount(count + 1)
-        orders.push(item);
-        propsdata.finalOrder(orders);
+        orderIds.push(menuId);
+        propsdata.finalOrder(orderIds);
     }
 
-    function removeOrder(item: any) {
+    function removeOrder(menuId: number) {
         if (count > 0) {
             setCount(count - 1)
-            orders.slice(orders[item], 1);
-            propsdata.finalOrder(orders)
-
+            orderIds.slice(orderIds.indexOf(menuId), 1);
+            propsdata.finalOrder(orderIds)
         }
     }
 
-    const addToCart = (items: any) => {
-        if (items) {
-            return items.map((item: any, index: number) => {
-                return (
-                    <b key={index}>{item.menu_id},&nbsp;&nbsp;</b>
-                )
-            })
-        }
-    }
+    // const addToMenuList = (menuIds: any) => {
+    //     if (menuIds.length > 0) {
+    //         return menuIds.map((item: any, index: number) => {
+    //             return (
+    //                 <b key={index}>{item.menu_id},&nbsp;&nbsp;</b>
+    //             )
+    //         })
+    //     }
+    // }
 
     const menuDetail = (menuData: any) => {
         if (menuData.length > 0) {
@@ -45,11 +44,11 @@ const MenuDetails: FC<ImenuDetailProps> = (propsdata) => {
                             &nbsp;&nbsp; {item.menu_name} - Rs.{item.menu_price}
                         </div>
                         <div className="col-md-4">
-                            <button className="btn btn-primary" onClick={() => addOrder(item)}>
+                            <button className="btn btn-primary" onClick={() => addOrder(item.menu_id)}>
                                 <span className="glyphicon glyphicon-plus"></span>
                             </button> &nbsp;
                             <span>{count}</span>&nbsp;
-                            <button className="btn btn-danger" onClick={() => removeOrder(item)}>
+                            <button className="btn btn-danger" onClick={() => removeOrder(item.menu_id)}>
                                 <span className="glyphicon glyphicon-minus"></span>
                             </button>
                         </div>
@@ -62,12 +61,10 @@ const MenuDetails: FC<ImenuDetailProps> = (propsdata) => {
 
     return (
         <div>
-            <div className="col-md-12 bg-success">
+            {/* <div className="col-md-12 bg-success">
                 <h1>Item Added</h1>
-                Item Number {addToCart(orders?.map((order: any) => {
-                    return <span>{order.menu_id}</span>
-                }))} Added
-            </div>
+                Item Number {addToMenuList(orderIds)} Added
+            </div> */}
             <div className="col-md-12 bg-info">
                 {menuDetail(propsdata.menuData)}
             </div>

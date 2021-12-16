@@ -10,7 +10,7 @@ const url = "https://zomatoajulypi.herokuapp.com/details";
 const menu = "https://zomatoajulypi.herokuapp.com/menu";
 
 const RestDetail = () => {
-
+    let menuIds: any | undefined = [];
     const params = useParams();
     const [details, setDetails] = useState<any>(null);
     const [menuList, setMenuList] = useState();
@@ -32,12 +32,13 @@ const RestDetail = () => {
     }, [params.restid]);
 
     function proceed() {
-        sessionStorage.setItem('menu', JSON.stringify(userItem));
+        window.sessionStorage.setItem('menu', JSON.stringify(userItem));
         navigate(`/placeOrder/${details.restaurant_name}`);
     }
 
-    function addToCart(data: any) {
-        setUserItem(data)
+    function addToCart(menuId: any) {
+        menuIds.push(menuId);
+        setUserItem(menuIds);
     }
 
     const restData = (details: any) => {
@@ -72,7 +73,7 @@ const RestDetail = () => {
                                 <TabPanel>
                                     <h2>Menu</h2>
                                     <MenuDetail menuData={menuList}
-                                        finalOrder={(data: any) => { addToCart(data) }} />
+                                        finalOrder={(menuId: any) => { addToCart(menuId) }} />
                                 </TabPanel>
                             </Tabs>
                             <button id="proceed" className="btn btn-success" onClick={() => proceed()}>Proceed</button>

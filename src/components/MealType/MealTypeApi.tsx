@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React,{useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import CostFilter from '../Filters/CostFilter';
+import CuisineFilter from '../Filters/CuisineFilter';
 import MealType from './MealType';
 import './MealType.css'
 
@@ -19,14 +21,11 @@ const MealTypeApi = () => {
         <div className="row">
             <div id="mainListing">
                 <div id="filter">
-                    <div className="col-md-5 col-md-offset-3">
-                        <h1>Filter</h1>
+                    <div className="col-md-10 col-md-offset-4">
+                        <h2>Filter</h2>
                     </div>
-                    {/* <CuisineFilter 
-                            mealId={this.state.mealId}
-                            restPerCuisine={(data) => {this.setDataPerFilter(data)}}/>
-                        <CostFilter mealId={this.state.mealId}
-                            restPerCost={(data) => {this.setDataPerFilter(data)}}/> */}
+                    <CostFilter />
+                    <CuisineFilter />
                 </div>
                 <MealType restData={restList} mealId={params.id}/>
             </div>

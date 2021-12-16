@@ -5,34 +5,39 @@ import './placeOrder.css';
 const menu_url = "http://zomatoajulypi.herokuapp.com/menuItem";
 const post_url = "http://localhost:3214/booking";
 
+// type MenuDet = {
+//     name: string;
+//     img:string;
+// }
+
 const PlaceOrder = () => {
 
-    let orderIds: any;
+    var orderIds: any | undefined = [];
+    
     const params = useParams();
 
-    var menuDetails = [{
-        name: '',
-        img: null
-    }]
-
-    var order = {    
-        id:Math.floor(Math.random()*100000),
-        hotel_name:params.restName,
-        name:'Sriram',
-        phone:'702600980',
-        email:'nsr@gmail.com',
-        cost:0,
-        address:'#304A',
-        details:''
+    // type MenuDet = {
+    //     name: string;
+    //     img:string;
+    // }
+    
+    var order = {
+        id: Math.floor(Math.random() * 100000),
+        hotel_name: params.restName,
+        name: 'Sriram',
+        phone: '702600980',
+        email: 'nsr@gmail.com',
+        cost: 0,
+        address: '#304A',
+        details: ''
     }
 
     const [cost, setCost] = useState(0);
-    const [details, setDetails] = useState(menuDetails);
+    const [menuDetails, setMenuDetail] = useState();
 
     useEffect(() => {
 
         getOrderIds();
-
         fetch(menu_url, {
             method: 'POST',
             headers: {
@@ -43,51 +48,49 @@ const PlaceOrder = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-
+                var menuItems:any = [];
                 data.map((item: any) => {
-
                     setCost(cost + parseInt(item.menu_price))
-                    menuDetails.push(item.menu_name, item.menu_image)
-
+                    // menuDetail.name = item.menu_name;
+                    // menuDetail.img = item.menu_image;
+                     menuItems.push(item.menu_name, item.menu_image);
                     return 'ok'
                 })
 
-                setDetails(menuDetails);
+                setMenuDetail(menuItems);
             })
-    }, [cost, menuDetails, getOrderIds()])
+            console.log(menuDetails);
+    }, [])
 
     function getOrderIds() {
-        let menuItems = JSON.parse(sessionStorage.getItem('menu') || '{}');
-
-        return ((menuItems: any) => {
-            return menuItems.map((item: any) => {
-                return orderIds.push(item);
-            })
+        const menuItems = JSON.parse(window.sessionStorage.getItem('menu') || '{}');
+        return menuItems.map((item: any) => {
+            return orderIds.push(parseInt(item));
         })
 
     };
 
-    function handleChange(event: any) {
-        [event.target.name] = event.target.value ;
-    }
+    // function handleChange(event: any) {
+    //     [event.target.name] = event.target.value;
+    // }
 
-    function handleSubmit() {
-        order.details = sessionStorage.getItem('menu') || '';
+    // function handleSubmit() {
+    //     order.details = JSON.parse(window.sessionStorage.getItem('menu') || '');
 
-        fetch(post_url, {
-            method: 'POST',
-            headers: {
-                'accept': 'application/json',
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(order)
-        })
-        .then(response => console.log(response))
-        .catch(error => alert('Error! ' + error.message))
-    }
+    //     fetch(post_url, {
+    //         method: 'POST',
+    //         headers: {
+    //             'accept': 'application/json',
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(order)
+    //     })
+    //         .then(response => console.log(response))
+    //         .catch(error => alert('Error! ' + error.message))
+    // }
 
-    const renderItems = (data: any) => {
-        if (data) {
+    const orderDetails = (data: any) => {
+        if (data.length > 0) {
             return data.map((item: any, index: number) => {
                 return (
                     <div className="orderItems" key={index}>
@@ -112,7 +115,7 @@ const PlaceOrder = () => {
                     </h3>
                 </div>
                 <div className="panel-body">
-                    <form action="https://developerpayment.herokuapp.com/paynow" method="POST">
+                    {/* <form action="https://developerpayment.herokuapp.com/paynow" method="POST">
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="col-md-6">
@@ -144,21 +147,21 @@ const PlaceOrder = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div> */}
+                    {orderDetails(order.details)}
+                    <input type="hidden" name="cost" value={order.cost} />
+                    <input type="hidden" name="id" value={order.id} />
+                    <input type="hidden" name="hotel_name" value={order.hotel_name} />
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h2>Total cost is Rs.{order.cost}</h2>
                         </div>
-                        {renderItems(order.details)}
-                        <input type="hidden" name="cost" value={order.cost} />
-                        <input type="hidden" name="id" value={order.id} />
-                        <input type="hidden" name="hotel_name" value={order.hotel_name} />
-                        <div className="row">
-                            <div className="col-md-12">
-                                <h2>Total cost is Rs.{order.cost}</h2>
-                            </div>
-                        </div>
-                        <button className="btn btn-success" onClick={() => { handleSubmit() }}
-                            type="submit">
-                            Checkout
-                        </button>
-                    </form>
+                    </div>
+                    {/* <button className="btn btn-success" onClick={() => { handleSubmit() }}
+                        type="submit">
+                        Checkout
+                    </button> */}
+                    {/* </form> */}
                 </div>
             </div>
         </div>
