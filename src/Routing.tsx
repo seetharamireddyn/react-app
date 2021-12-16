@@ -12,21 +12,21 @@ const Routing = () => {
 
     return (
         <BrowserRouter>
-            <Header/>
+            <Header />
             <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/mealid" element={<MealTypeApi/>}>
-                    <Route path=":id" element={<MealTypeApi/>} />
+                <Route path="/" element={<Home />} />
+                <Route path="/mealid" element={<MealTypeApi />}>
+                    <Route path=":id" element={<MealTypeApi />} />
                 </Route>
                 <Route path="/details" element={<RestDetail />}>
-                    <Route path=":restid" element={<RestDetail />}/>
-                </Route> 
-                <Route path="/placeOrder" element={<PlaceOrder/>}> 
-                    <Route path=":restName"  element={<PlaceOrder/>}/>
+                    <Route path=":restid" element={<RestDetail />} />
                 </Route>
-                <Route path="*" element={<Error/>}/>
+                <Route path="/placeOrder" element={<PlaceOrder />}>
+                    <Route path=":restName" element={<PlaceOrder />} />
+                </Route>
+                <Route path="*" element={<Error />} />
             </Routes>
-            <Footer/>
+            <Footer />
         </BrowserRouter>
     )
 
