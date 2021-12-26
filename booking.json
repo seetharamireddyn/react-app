@@ -1,3 +1,49 @@
 {
-  "booking": []
+  "booking": [
+    {
+      "id": 99315,
+      "hotel_name": "Domino's Pizza",
+      "name": "Sriram",
+      "phone": "702600980",
+      "email": "nsr@gmail.com",
+      "cost": 0,
+      "address": "#304A",
+      "details": [
+        [
+          3
+        ]
+      ]
+    },
+    {
+      "id": 49653,
+      "hotel_name": "New Udupi Grand",
+      "name": "Sriram",
+      "phone": "702600980",
+      "email": "nsr@gmail.com",
+      "cost": 0,
+      "address": "#304A",
+      "details": [
+        [
+          66
+        ]
+      ]
+    },
+    {
+      "id": 25279,
+      "hotel_name": "Chandni Chowk 2 Bangalore",
+      "name": "Sriram",
+      "phone": "702600980",
+      "email": "nsr@gmail.com",
+      "cost": 0,
+      "address": "#304A",
+      "details": [
+        [
+          64
+        ],
+        [
+          65
+        ]
+      ]
+    }
+  ]
 }

@@ -10,11 +10,10 @@ const url = "https://zomatoajulypi.herokuapp.com/details";
 const menu = "https://zomatoajulypi.herokuapp.com/menu";
 
 const RestDetail = () => {
-    let menuIds: any | undefined = [];
     const params = useParams();
     const [details, setDetails] = useState<any>(null);
     const [menuList, setMenuList] = useState();
-    const [userItem, setUserItem] = useState();
+    const [userItem, setUserItem] = useState<any | undefined>([])
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,18 +31,18 @@ const RestDetail = () => {
     }, [params.restid]);
 
     function proceed() {
+        console.log(userItem);
         window.sessionStorage.setItem('menu', JSON.stringify(userItem));
         navigate(`/placeOrder/${details.restaurant_name}`);
     }
 
-    function addToCart(menuId: any) {
-        menuIds.push(menuId);
-        setUserItem(menuIds);
+    function addToCart(menuId: number) {
+        setUserItem([...userItem, menuId]);
     }
 
     const restData = (details: any) => {
 
-        if (details != null) {
+        if (details != null) {;
             return (
                 <div className="container">
                     <div className="panel panel-info">
